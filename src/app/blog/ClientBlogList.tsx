@@ -24,6 +24,7 @@ export default function ClientBlogList({ blogs }: Props) {
   const [visibleCount, setVisibleCount] = useState(12);
   const isMore = blogs.length > visibleCount;
 console.log("error",blogs);
+
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 12);
   };
