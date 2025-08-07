@@ -9,7 +9,7 @@ export async function getPageBySlug(slug: string) {
     const url = `${API}/api/pages?where[slug][equals]=${slug}`;
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
-    
+     
     });
 
     if (!res.ok) {
@@ -27,7 +27,7 @@ export async function getPageBySlug(slug: string) {
 
 export async function getAllPages() {
   const res = await fetch(`${API}/api/pages`, {
-   
+  
   });
   const json = await res.json();
   return json?.docs || [];
@@ -47,7 +47,7 @@ export async function getAllBlogs() {
     }
 
     const data = await res.json();
-    console.log(data);
+    console.log(data); 
     return data?.docs || [];
   } catch (error) {
     console.error('❌ Error in getAllBlogs:', error);
