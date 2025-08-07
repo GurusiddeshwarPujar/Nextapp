@@ -1,15 +1,15 @@
+
+
 const API = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3001';
 
-
 console.log('API Base URL:', API);
+
 export async function getPageBySlug(slug: string) {
   try {
     const url = `${API}/api/pages?where[slug][equals]=${slug}`;
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
-      // --- FIX APPLIED ---
-      // Removed: cache: 'no-store', // This caused the Dynamic server usage error for SSG
-      // Default caching or ISR (if needed) will be applied by Next.js
+    
     });
 
     if (!res.ok) {
@@ -26,10 +26,11 @@ export async function getPageBySlug(slug: string) {
 }
 
 export async function getAllPages() {
-  // Minor consistency improvement: Use API constant
-  const res = await fetch(`${API}/api/pages`);
+  const res = await fetch(`${API}/api/pages`, {
+   
+  });
   const json = await res.json();
-  return json?.docs || []; // Adjust depending on PayloadCMS response
+  return json?.docs || [];
 }
 
 export async function getAllBlogs() {
@@ -37,8 +38,7 @@ export async function getAllBlogs() {
     const url = `${API}/api/blog?limit=100&sort=-publishedAt`;
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
-      // --- FIX APPLIED ---
-      // Removed: cache: 'no-store', // This caused the Dynamic server usage error for SSG
+      next: { revalidate: 60 }, 
     });
 
     if (!res.ok) {
@@ -60,8 +60,7 @@ export async function getBlogBySlug(slug: string) {
     const url = `${API}/api/blog?where[slug][equals]=${slug}`;
     const res = await fetch(url, {
       headers: { 'Content-Type': 'application/json' },
-      // --- FIX APPLIED ---
-      // Removed: cache: 'no-store', // This caused the Dynamic server usage error for SSG
+      next: { revalidate: 60 }, 
     });
 
     if (!res.ok) {
