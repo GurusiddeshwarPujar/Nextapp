@@ -1,5 +1,7 @@
 const API = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3001';
 
+
+console.log('API Base URL:', API);
 export async function getPageBySlug(slug: string) {
   try {
     const url = `${API}/api/pages?where[slug][equals]=${slug}`;
@@ -45,6 +47,7 @@ export async function getAllBlogs() {
     }
 
     const data = await res.json();
+    console.log(data);
     return data?.docs || [];
   } catch (error) {
     console.error('❌ Error in getAllBlogs:', error);
